@@ -31,7 +31,7 @@ const CoverPage = () => {
         </div>
         <div className="relative">
           <img
-            src="/parent (6).png" 
+            src="/Parent (6).png" 
             alt="Image 4"
             className="w-full h-auto object-cover rounded-lg transform -translate-y-4"
           />
