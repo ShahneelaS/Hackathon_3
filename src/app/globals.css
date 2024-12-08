@@ -1,7 +1,12 @@
+/* Add Google Fonts link */
+@import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400&family=Satoshi:wght@400&display=swap');
+
+/* Tailwind directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Custom properties for light/dark modes */
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -16,6 +21,7 @@
   }
 }
 
+/* Global body styles */
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -24,8 +30,15 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  font-family: 'Satoshi', sans-serif; /* Apply Satoshi font to body */
 }
 
+/* Apply Clash Display font to headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Clash Display', sans-serif;
+}
+
+/* Custom utility */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
