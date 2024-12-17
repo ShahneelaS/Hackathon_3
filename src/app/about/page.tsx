@@ -57,22 +57,23 @@ const AboutPage = () => {
       </section>
 
       {/* Section with Text on Left and Image on Right */}
-      <section className="flex flex-col md:flex-row items-center bg-white px-6 md:px-20 py-16">
-        {/* Card (Text on Left) */}
-        <div className="w-full md:w-1/2 bg-[#2A254B] p-8 rounded-lg shadow-md mb-8 md:mb-0 flex flex-col justify-between">
-          <h2 className="font-clash-display text-2xl md:text-3xl font-semibold leading-tight text-left text-white mb-4">
-            It started with a small idea
-          </h2>
-          <p className="font-satoshi text-lg text-white mb-4">
-            A global brand with local beginnings, our story began in a small studio in South London in early 2014.
-          </p>
-          <button
-            className="bg-[#726E8D] text-white px-8 py-4 rounded-full text-base font-medium"
-            onClick={() => router.push("/collection")} 
-          >
-            View Collection
-          </button>
-        </div>
+      <section className="flex flex-col md:flex-row items-stretch bg-white px-6 md:px-20 py-16 gap-8">
+  {/* Card (Text on Left) */}
+  <div className="w-full md:w-1/2 flex-1 bg-[#2A254B] p-8 rounded-lg shadow-md flex flex-col justify-between">
+    <h2 className="font-clash-display text-2xl md:text-3xl font-semibold leading-tight text-white mb-4">
+      It started with a small idea
+    </h2>
+    <p className="font-satoshi text-lg text-white mb-4">
+      A global brand with local beginnings, our story began in a small studio in South London in early 2014.
+    </p>
+    <button
+  className="bg-[#726E8D] text-white px-4 py-3 rounded-lg text-base font-medium mt-auto w-auto max-w-[200px]"
+  onClick={() => router.push("/collection")}
+>
+  View Collection
+</button>
+
+  </div>
 
         {/* Image (Right side) */}
         <div className="w-full md:w-1/2 h-[450px] md:h-[400px] flex justify-center md:pl-8">
