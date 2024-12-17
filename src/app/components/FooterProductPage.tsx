@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import {
   FaLinkedin,
   FaFacebook,
@@ -53,7 +54,9 @@ const FooterProductPage = () => {
             <li className="font-satoshi text-sm sm:text-base">Best sellers</li>
             <li className="font-satoshi text-sm sm:text-base">Recently viewed</li>
             <li className="font-satoshi text-sm sm:text-base">Popular this week</li>
-            <li className="font-satoshi text-sm sm:text-base">All products</li>
+            <li className="font-satoshi text-sm sm:text-base">
+              <Link href="/all-products">All products</Link> {/* Add Link */}
+            </li>
           </ul>
         </div>
 
@@ -73,7 +76,9 @@ const FooterProductPage = () => {
         <div>
           <h3 className="font-clash text-lg sm:text-xl mb-4">Our company</h3>
           <ul className="space-y-2">
-            <li className="font-satoshi text-sm sm:text-base">About us</li>
+          <li className="font-satoshi text-sm sm:text-base">
+              <Link href="/about">About us</Link> {/* Add Link */}
+            </li>
             <li className="font-satoshi text-sm sm:text-base">Vacancies</li>
             <li className="font-satoshi text-sm sm:text-base">Contact us</li>
             <li className="font-satoshi text-sm sm:text-base">Privacy</li>

@@ -1,4 +1,4 @@
-// src/app/landingPage/page.tsx
+
 import React from "react";
 import Navbar from "../components/Navbar"; 
 

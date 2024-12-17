@@ -50,27 +50,27 @@ const AllProductsPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {/* Product 1 */}
           <div className="flex flex-col items-center">
-            <img src="/HS-Right Image.png" alt="Product 1" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">Product Title 1</h3>
-            <p className="text-[#505977]">$25.00</p>
+            <img src="/HS-Right Image.png" alt="The Dandy chair" className="w-full h-auto rounded-lg mb-4" />
+            <h3 className="font-bold text-[#2A254B]">The Dandy chair</h3>
+            <p className="text-[#505977]">$250.00</p>
           </div>
           {/* Product 2 */}
           <div className="flex flex-col items-center">
-            <img src="/Parent (1).png" alt="Product 2" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">Product Title 2</h3>
-            <p className="text-[#505977]">$35.00</p>
+            <img src="/Parent (1).png" alt="Rustic Vase Set" className="w-full h-auto rounded-lg mb-4" />
+            <h3 className="font-bold text-[#2A254B]">Rustic Vase Set</h3>
+            <p className="text-[#505977]">$155.00</p>
           </div>
           {/* Product 3 */}
           <div className="flex flex-col items-center">
-            <img src="/Parent (2).png" alt="Product 3" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">Product Title 3</h3>
-            <p className="text-[#505977]">$40.00</p>
+            <img src="/Parent (2).png" alt="The Silky Vase" className="w-full h-auto rounded-lg mb-4" />
+            <h3 className="font-bold text-[#2A254B]">The Silky Vase</h3>
+            <p className="text-[#505977]">$125.00</p>
           </div>
           {/* Product 4 */}
           <div className="flex flex-col items-center">
             <img src="/Parent (3).png" alt="Product 4" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">Product Title 4</h3>
-            <p className="text-[#505977]">$50.00</p>
+            <h3 className="font-bold text-[#2A254B]">The Lucy Lamp</h3>
+            <p className="text-[#505977]">$399.00</p>
           </div>
         </div>
 
@@ -78,27 +78,27 @@ const AllProductsPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10">
           {/* Product 5 */}
           <div className="flex flex-col items-center">
-            <img src="/Parent (9).png" alt="Product 5" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">Product Title 5</h3>
-            <p className="text-[#505977]">$55.00</p>
+            <img src="/Parent (9).png" alt="Fancy Lamp" className="w-full h-auto rounded-lg mb-4" />
+            <h3 className="font-bold text-[#2A254B]">Golden Lamp</h3>
+            <p className="text-[#505977]">$789.99</p>
           </div>
           {/* Product 6 */}
           <div className="flex flex-col items-center">
-            <img src="/Parent (7).png" alt="Product 6" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">Product Title 6</h3>
+            <img src="/Parent (7).png" alt="Rustic Vase" className="w-full h-auto rounded-lg mb-4" />
+            <h3 className="font-bold text-[#2A254B]">Ceramic Vase</h3>
             <p className="text-[#505977]">$65.00</p>
           </div>
           {/* Product 7 */}
           <div className="flex flex-col items-center">
-            <img src="/Parent (6).png" alt="Product 7" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">Product Title 7</h3>
-            <p className="text-[#505977]">$70.00</p>
+            <img src="/Parent (6).png" alt="Stool" className="w-full h-auto rounded-lg mb-4" />
+            <h3 className="font-bold text-[#2A254B]">Stool</h3>
+            <p className="text-[#505977]">$370.00</p>
           </div>
           {/* Product 8 */}
           <div className="flex flex-col items-center">
-            <img src="/Parent (8).png" alt="Product 8" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">Product Title 8</h3>
-            <p className="text-[#505977]">$80.00</p>
+            <img src="/Parent (8).png" alt="Circus Woud" className="w-full h-auto rounded-lg mb-4" />
+            <h3 className="font-bold text-[#2A254B]">Circus Woud</h3>
+            <p className="text-[#505977]">$789.00</p>
           </div>
         </div>
 
@@ -106,27 +106,27 @@ const AllProductsPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10">
           {/* Product 5 */}
           <div className="flex flex-col items-center">
-            <img src="/HS-Right Image.png" alt="Product 5" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">Product Title 5</h3>
-            <p className="text-[#505977]">$55.00</p>
+            <img src="/HS-Right Image.png" alt="The Dandy chair" className="w-full h-auto rounded-lg mb-4" />
+            <h3 className="font-bold text-[#2A254B]">The Dandy chair</h3>
+            <p className="text-[#505977]">$250.00</p>
           </div>
           {/* Product 6 */}
           <div className="flex flex-col items-center">
             <img src="/Parent (1).png" alt="Product 6" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">Product Title 6</h3>
-            <p className="text-[#505977]">$65.00</p>
+            <h3 className="font-bold text-[#2A254B]">Rustic Vase Set</h3>
+            <p className="text-[#505977]">$155.00</p>
           </div>
           {/* Product 7 */}
           <div className="flex flex-col items-center">
             <img src="/Parent (2).png" alt="Product 7" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">Product Title 7</h3>
-            <p className="text-[#505977]">$70.00</p>
+            <h3 className="font-bold text-[#2A254B]">The Silky Vase</h3>
+            <p className="text-[#505977]">$125.00</p>
           </div>
           {/* Product 8 */}
           <div className="flex flex-col items-center">
             <img src="/Parent (3).png" alt="Product 8" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">Product Title 8</h3>
-            <p className="text-[#505977]">$80.00</p>
+            <h3 className="font-bold text-[#2A254B]">The Lucy Lamp8</h3>
+            <p className="text-[#505977]">$399.00</p>
           </div>
         </div>
 

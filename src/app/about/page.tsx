@@ -68,7 +68,7 @@ const AboutPage = () => {
           </p>
           <button
             className="bg-[#726E8D] text-white px-8 py-4 rounded-full text-base font-medium"
-            onClick={() => router.push("/collection")} // Adjust the route for the collection page
+            onClick={() => router.push("/collection")} 
           >
             View Collection
           </button>

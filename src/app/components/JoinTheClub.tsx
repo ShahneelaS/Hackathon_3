@@ -1,7 +1,7 @@
 const JoinTheClub = () => {
   return (
-    <section className="bg-[#F3F3F3] py-16 px-6 lg:px-20 text-center"> {/* Updated background color */}
-      <div className="max-w-[1000px] mx-auto bg-white p-8 rounded-md"> {/* Increased container size */}
+    <section className="bg-[#F3F3F3] py-16 px-6 lg:px-20 text-center"> 
+      <div className="max-w-[1000px] mx-auto bg-white p-8 rounded-md">
         {/* Heading */}
         <h2 className="text-[#2A254B] text-2xl sm:text-3xl font-ClashDisplay mb-4">
           Join the club and get the benefits

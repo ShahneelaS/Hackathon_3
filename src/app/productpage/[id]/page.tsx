@@ -12,13 +12,15 @@ const ProductPage = () => {
   const { id } = useParams();
   const router = useRouter(); // For navigation
   const [showHeader, setShowHeader] = useState(true); // Manage top header visibility
+  const [amount, setAmount] = useState(1); // State for product amount
+  const [successMessage, setSuccessMessage] = useState(''); // State for success message
 
-  // Static product data with prices in pounds
+ 
   const products = [
     { id: '1', name: 'The Dandy Chair', price: '£250', description: 'A timeless design, with premium materials...', dimensions: { height: '110cm', width: '75cm', depth: '50cm' }, image: '/Image Left.png' },
-    { id: '2', name: 'The Classic Sofa', price: '£799.99', description: 'A classic design, perfect for any living room...', dimensions: { height: '90cm', width: '180cm', depth: '80cm' }, image: '/Parent (1).png' },
-    { id: '3', name: 'Elegant Vase', price: '£150.00', description: 'Beautiful ceramic vase...', dimensions: { height: '30cm', width: '20cm', depth: '20cm' }, image: '/Parent (2).png' },
-    { id: '4', name: 'Modern Lamp', price: '£120.00', description: 'Stylish table lamp...', dimensions: { height: '50cm', width: '30cm', depth: '30cm' }, image: '/Parent (3).png' }
+    { id: '2', name: 'Rustic Vase Set', price: '£155.00', description: 'A classic design, perfect for any living room...', dimensions: { height: '90cm', width: '180cm', depth: '80cm' }, image: '/Parent (1).png' },
+    { id: '3', name: 'The Silky Vase', price: '£125.00', description: 'Beautiful ceramic vase...', dimensions: { height: '30cm', width: '20cm', depth: '20cm' }, image: '/Parent (2).png' },
+    { id: '4', name: 'The Lucy Lamp', price: '£399.00', description: 'Stylish lamp...', dimensions: { height: '50cm', width: '30cm', depth: '30cm' }, image: '/Parent (3).png' }
   ];
 
   const product = products.find((product) => product.id === id);
@@ -26,6 +28,12 @@ const ProductPage = () => {
   if (!product) {
     return <p>Product not found</p>;
   }
+
+  // Function to handle adding to cart
+  const handleAddToCart = () => {
+    setSuccessMessage(`${product.name} successfully added to cart!`);
+    setTimeout(() => setSuccessMessage(''), 3000); // Clear message after 3 seconds
+  };
 
   return (
     <div className="product-page">
@@ -104,14 +112,32 @@ const ProductPage = () => {
           <div className="add-to-cart flex items-center space-x-4">
             <div className="amount-box flex items-center border rounded-md px-4 py-2">
               <span className="text-sm text-[#505977]">Amount:</span>
-              <button className="text-xl font-semibold mx-2">-</button>
-              <span className="mx-2">1</span>
-              <button className="text-xl font-semibold mx-2">+</button>
+              <button
+                className="text-xl font-semibold mx-2"
+                onClick={() => setAmount(Math.max(amount - 1, 1))} 
+              >
+                -
+              </button>
+              <span className="mx-2">{amount}</span>
+              <button
+                className="text-xl font-semibold mx-2"
+                onClick={() => setAmount(amount + 1)}
+              >
+                +
+              </button>
             </div>
-            <button className="ml-4 px-6 py-2 bg-[#2A254B] text-white rounded-md">
+            <button
+              className="ml-4 px-6 py-2 bg-[#2A254B] text-white rounded-md"
+              onClick={handleAddToCart}
+            >
               Add to Cart
             </button>
           </div>
+
+          {/* Success Message */}
+          {successMessage && (
+            <p className="text-green-600 font-medium mt-4">{successMessage}</p>
+          )}
         </div>
       </section>
 

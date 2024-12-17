@@ -1,9 +1,9 @@
-// src/app/page.tsx
-'use client';  // Mark this file as a Client Component
+
+'use client';  
 
 import React, { useState, useEffect } from "react";
-import CoverPage from "./components/CoverPage";  // Import CoverPage
-import Navbar from "./components/Navbar";        // Import other components for landing page
+import CoverPage from "./components/CoverPage";  
+import Navbar from "./components/Navbar";        
 import HeroSection from "./components/HeroSection";
 import FeatureSection from "./components/FeatureSection";
 import NewCeramics from "./components/NewCeramics";
@@ -19,7 +19,7 @@ export default function Page() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsCoverPageVisible(false); // Hide Cover Page after 3 seconds
-    }, 3000); // Adjust time as needed
+    }, 3000); 
 
     return () => clearTimeout(timer); // Cleanup timer
   }, []);
