@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Hackathon 3: Enhanced Dynamic Marketplace Project
 
-## Getting Started
+Welcome to the Hackathon 3 project repository! This project involved building a dynamic and feature-rich marketplace application over six days, tackling daily tasks that laid the foundation, integrated APIs, and prepared the application for deployment. Below is an overview of the project's journey and key deliverables.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## **Project Summary**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The goal of this project was to create a comprehensive marketplace platform with seamless user experiences, robust backend integration, and effective deployment strategies. The project focused on:
+- Dynamic frontend components
+- Backend integration using **Sanity CMS**
+- API integration
+- Error handling and testing
+- Deployment preparation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## **Daily Tasks and Progress**
 
-## Learn More
+### **DAY 1: Laying the Foundation for Your Marketplace Journey**
+- Set up the initial project structure using JavaScript.
+- Created foundational components for the marketplace application.
+- Established folder structures for scalability and maintainability.
 
-To learn more about Next.js, take a look at the following resources:
+### **DAY 2: Planning the Technical Foundation**
+- Designed the technical architecture for the marketplace.
+- Defined data schemas for products, users, and orders.
+- Prepared system workflows and API requirements for future integration.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### **DAY 3: API Integration and Data Migration**
+- Integrated third-party APIs for essential functionalities such as:
+  - **Shipment tracking**
+  - **Payment processing**
+- Migrated product data to **Sanity CMS** for efficient content management.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### **DAY 4: Building Dynamic Frontend Components for Your Marketplace**
+- Developed reusable and responsive components for the marketplace.
+- Created user-friendly pages such as the product listing, cart, and checkout.
+- Enhanced the UI/UX with interactive elements and a cohesive design.
 
-## Deploy on Vercel
+### **DAY 5: Testing, Error Handling, and Backend Integration Refinement**
+- Performed end-to-end testing to identify and resolve bugs.
+- Implemented error-handling mechanisms for API requests.
+- Refined backend integration with **Sanity CMS** to ensure data consistency and reliability.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### **DAY 6: Deployment Preparation and Staging Environment Setup**
+- Prepared the project for production deployment.
+- Configured a staging environment for testing.
+- Optimized performance and ensured the project was ready for deployment.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
+
+## **Documentation**
+
+Detailed reports for each day's progress are available in the **Documentation** folder within this repository. These reports include:
+- Task descriptions
+- Challenges faced
+- Solutions implemented
+- Screenshots or diagrams 
+
+---
+
+## **Tech Stack**
+- **Frontend:** JavaScript, HTML, CSS
+- **Backend:** Sanity CMS
+- **APIs:** Third-party APIs for shipment tracking and Sanity CMS
+- **Tools:** GitHub for version control, online staging environment
+
+---
+
+## **How to Run the Project**
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-repo-url.git
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server:**
+   ```bash
+   npm start
+   ```
+
+4. **Access the application:**
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## **Future Enhancements**
+- Adding more payment options (e.g., Bank Transfer, COD).
+- Implementing advanced search and filtering functionalities.
+- Improving the design with additional animations and transitions.
+- Expanding API integrations for new features.
+
+---
+
+## **Acknowledgments**
+A big thank you to the Hackathon team, mentors, and collaborators for their support and guidance throughout this project.
+
