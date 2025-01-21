@@ -1,3 +1,5 @@
+import Image from 'next/image'; 
+
 const StudioToGlobal = () => {
   return (
     <section className="flex flex-col lg:flex-row bg-white py-20 px-6 lg:px-20">
@@ -27,10 +29,13 @@ const StudioToGlobal = () => {
 
       {/* Right Section (Image) */}
       <div className="flex-1">
-        <img
+        <Image
           src="/Image.png" 
           alt="Studio to Global"
-          className="w-full h-auto lg:h-full object-cover"
+          layout="responsive" 
+          width={1000}  
+          height={600}  
+          className="object-cover" 
         />
       </div>
     </section>

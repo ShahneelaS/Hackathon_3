@@ -1,27 +1,28 @@
 import React from "react";
+import Image from "next/image"; 
 
 const features = [
   {
     title: "Next day as standard",
     description: "Order before 3pm and get your order the next day as standard.",
-    iconPath: "/Delivery-icon.png", 
+    iconPath: "/Delivery-icon.png",
   },
   {
     title: "Made by true artisans",
     description:
       "Handmade crafted goods made with real passion and craftsmanship.",
-    iconPath: "/Checkmark-icon.png", 
+    iconPath: "/Checkmark-icon.png",
   },
   {
     title: "Unbeatable prices",
     description: "Affordable luxury for your home without compromise.",
-    iconPath: "/Purchase-icon.png", 
+    iconPath: "/Purchase-icon.png",
   },
   {
     title: "Recycled packaging",
     description:
       "We use 100% recycled packaging to ensure our footprint is manageable.",
-    iconPath: "/Sprout-icon.png", 
+    iconPath: "/Sprout-icon.png",
   },
 ];
 
@@ -33,15 +34,14 @@ const FeatureSection = () => {
       </h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {features.map((feature, index) => (
-          <div
-            key={index}
-            className="w-full flex flex-col items-center sm:items-start"
-          >
+          <div key={index} className="w-full flex flex-col items-center sm:items-start">
             {/* Icon Section */}
             <div className="w-[60px] h-[60px] mb-4 flex items-center justify-center sm:justify-start">
-              <img
+              <Image
                 src={feature.iconPath}
                 alt={feature.title}
+                width={60} 
+                height={60} 
                 className="w-full h-full object-contain"
               />
             </div>

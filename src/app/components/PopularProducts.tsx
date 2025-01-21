@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 const PopularProducts = () => {
   return (
     <section className="bg-[#F9F9F9] py-20 px-6 lg:px-20">
@@ -10,9 +12,11 @@ const PopularProducts = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {/* Product 1 */}
         <div>
-          <img
-            src="/sofa.png" 
+          <Image
+            src="/sofa.png"
             alt="The Poplar suede sofa"
+            width={500} 
+            height={400} 
             className="w-full h-[300px] sm:h-[350px] md:h-[400px] object-cover rounded-lg"
           />
           <p className="text-center mt-4 text-lg">The Poplar suede sofa</p>
@@ -21,9 +25,11 @@ const PopularProducts = () => {
 
         {/* Product 2 */}
         <div>
-          <img
-            src="/Parent.png" 
+          <Image
+            src="/Parent.png"
             alt="The Dandy chair"
+            width={500} 
+            height={400} 
             className="w-full h-[300px] sm:h-[350px] md:h-[400px] object-cover rounded-lg"
           />
           <p className="text-center mt-4 text-lg">The Dandy chair</p>
@@ -32,9 +38,11 @@ const PopularProducts = () => {
 
         {/* Product 3 */}
         <div>
-          <img
-            src="/Parent (4).png" 
+          <Image
+            src="/Parent (4).png"
             alt="The Dandy chair"
+            width={500} 
+            height={400} 
             className="w-full h-[300px] sm:h-[350px] md:h-[400px] object-cover rounded-lg"
           />
           <p className="text-center mt-4 text-lg">The Dandy chair</p>

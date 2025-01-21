@@ -12,6 +12,7 @@ import JoinTheClub from "./components/JoinTheClub";
 import StudioToGlobal from "./components/StudioToGlobal";
 import Footer from "./components/Footer";
 
+
 export default function Page() {
   const [isCoverPageVisible, setIsCoverPageVisible] = useState(true);
 

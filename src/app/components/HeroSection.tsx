@@ -1,4 +1,5 @@
 import React from "react";
+import Image from 'next/image'; 
 
 const HeroSection = () => {
   return (
@@ -33,9 +34,11 @@ const HeroSection = () => {
 
       {/* Right Side (Image) */}
       <div className="w-full lg:w-1/3 flex justify-center lg:justify-end">
-        <img
+        <Image
           src="/HS-Right Image.png"
           alt="Furniture"
+          width={500}  
+          height={500} 
           className="w-full h-full object-cover object-center"
         />
       </div>

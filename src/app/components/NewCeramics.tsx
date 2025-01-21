@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image'; 
 
 interface NewCeramicsProps {
-  heading?: string; // Optional prop for heading
+  heading?: string; 
 }
 
 const NewCeramics = ({ heading = "New Ceramics" }: NewCeramicsProps) => {
@@ -14,9 +15,11 @@ const NewCeramics = ({ heading = "New Ceramics" }: NewCeramicsProps) => {
         {/* Product 1 */}
         <div className="shadow-lg rounded-lg overflow-hidden">
           <Link href="/productpage/1">
-            <img
+            <Image
               src="/Parent.png"
               alt="Product 1"
+              width={500} 
+              height={500} 
               className="w-full h-[300px] sm:h-[350px] md:h-[462px] object-cover"
             />
             <div className="p-4">
@@ -29,9 +32,11 @@ const NewCeramics = ({ heading = "New Ceramics" }: NewCeramicsProps) => {
         {/* Product 2 */}
         <div className="shadow-lg rounded-lg overflow-hidden">
           <Link href="/productpage/2">
-            <img
+            <Image
               src="/Parent (1).png"
               alt="Product 2"
+              width={500} 
+              height={500} 
               className="w-full h-[300px] sm:h-[350px] md:h-[462px] object-cover"
             />
             <div className="p-4">
@@ -44,9 +49,11 @@ const NewCeramics = ({ heading = "New Ceramics" }: NewCeramicsProps) => {
         {/* Product 3 */}
         <div className="shadow-lg rounded-lg overflow-hidden">
           <Link href="/productpage/3">
-            <img
+            <Image
               src="/Parent (2).png"
               alt="Product 3"
+              width={500} 
+              height={500} 
               className="w-full h-[300px] sm:h-[350px] md:h-[462px] object-cover"
             />
             <div className="p-4">
@@ -59,9 +66,11 @@ const NewCeramics = ({ heading = "New Ceramics" }: NewCeramicsProps) => {
         {/* Product 4 */}
         <div className="shadow-lg rounded-lg overflow-hidden">
           <Link href="/productpage/4">
-            <img
+            <Image
               src="/Parent (3).png"
               alt="Product 4"
+              width={500} 
+              height={500} 
               className="w-full h-[300px] sm:h-[350px] md:h-[462px] object-cover"
             />
             <div className="p-4">

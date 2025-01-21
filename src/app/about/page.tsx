@@ -6,6 +6,7 @@ import FooterProductPage from "./../components/FooterProductPage";
 import JoinTheClub from "./../components/JoinTheClub"; 
 import FeatureSection from "./../components/FeatureSection"; 
 import { useRouter } from "next/navigation";
+import Image from "next/image"; 
 
 const AboutPage = () => {
   const [showHeader, setShowHeader] = useState(true); // Manage top header visibility
@@ -18,7 +19,13 @@ const AboutPage = () => {
         <div className="bg-[#2A254B] text-white flex items-center justify-center px-4 py-2 relative">
           {/* Content Centered */}
           <div className="flex items-center gap-2">
-            <img src="/Delivery-icon.png" alt="Delivery Icon" className="w-4 h-4" />
+            <Image 
+              src="/Delivery-icon.png" 
+              alt="Delivery Icon" 
+              width={16} 
+              height={16}
+              className="w-4 h-4" 
+            />
             <p className="text-sm font-normal">
               Free delivery on all orders over £50 with code easter checkout
             </p>
@@ -58,28 +65,29 @@ const AboutPage = () => {
 
       {/* Section with Text on Left and Image on Right */}
       <section className="flex flex-col md:flex-row items-stretch bg-white px-6 md:px-20 py-16 gap-8">
-  {/* Card (Text on Left) */}
-  <div className="w-full md:w-1/2 flex-1 bg-[#2A254B] p-8 rounded-lg shadow-md flex flex-col justify-between">
-    <h2 className="font-clash-display text-2xl md:text-3xl font-semibold leading-tight text-white mb-4">
-      It started with a small idea
-    </h2>
-    <p className="font-satoshi text-lg text-white mb-4">
-      A global brand with local beginnings, our story began in a small studio in South London in early 2014.
-    </p>
-    <button
-  className="bg-[#726E8D] text-white px-4 py-3 rounded-lg text-base font-medium mt-auto w-auto max-w-[200px]"
-  onClick={() => router.push("/collection")}
->
-  View Collection
-</button>
-
-  </div>
+        {/* Card (Text on Left) */}
+        <div className="w-full md:w-1/2 flex-1 bg-[#2A254B] p-8 rounded-lg shadow-md flex flex-col justify-between">
+          <h2 className="font-clash-display text-2xl md:text-3xl font-semibold leading-tight text-white mb-4">
+            It started with a small idea
+          </h2>
+          <p className="font-satoshi text-lg text-white mb-4">
+            A global brand with local beginnings, our story began in a small studio in South London in early 2014.
+          </p>
+          <button
+            className="bg-[#726E8D] text-white px-4 py-3 rounded-lg text-base font-medium mt-auto w-auto max-w-[200px]"
+            onClick={() => router.push("/collection")}
+          >
+            View Collection
+          </button>
+        </div>
 
         {/* Image (Right side) */}
         <div className="w-full md:w-1/2 h-[450px] md:h-[400px] flex justify-center md:pl-8">
-          <img
+          <Image
             src="/Image Block.png" 
             alt="About Us Image"
+            width={800} // Set the width
+            height={600} // Set the height
             className="w-full h-full object-cover rounded-lg"
           />
         </div>
@@ -89,9 +97,11 @@ const AboutPage = () => {
       <section className="flex flex-col md:flex-row bg-[#F9F9F9] items-center px-6 md:px-20 py-16">
         {/* Left Side: Image */}
         <div className="w-full md:w-1/2 h-full mb-8 md:mb-0">
-          <img
+          <Image
             src="/left-image.png" 
             alt="Service Image"
+            width={800} // Set the width
+            height={600} // Set the height
             className="w-full h-full object-cover rounded-lg"
           />
         </div>
@@ -99,7 +109,7 @@ const AboutPage = () => {
         {/* Right Side: Text and Button */}
         <div className="w-full md:w-1/2 flex flex-col justify-between px-6 md:px-16 py-6 md:py-16">
           <h2 className="font-clash-display text-xl md:text-2xl lg:text-[24px] leading-tight text-left text-[#2A254B] mb-4">
-            Our service isn’t just personal, it’s actually <br />
+            Our service isn&apos;t just personal, it&apos;s actually <br />
             hyper personally exquisite
           </h2>
           <p className="font-satoshi text-base md:text-lg leading-tight text-left text-[#505977] mb-6">

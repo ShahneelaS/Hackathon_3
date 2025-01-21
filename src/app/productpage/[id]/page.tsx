@@ -1,157 +1,132 @@
 "use client";
 
-import { useParams, useRouter } from 'next/navigation';
-import Navbar from '../../components/Navbar';
-import FooterProductPage from '../../components/FooterProductPage';
-import JoinTheClub from '../../components/JoinTheClub';
-import FeatureSection from '../../components/FeatureSection';
-import NewCeramics from '../../components/NewCeramics';
-import { useState } from 'react';
+import { useState, useEffect } from "react";
+import { client } from "../../../sanity/lib/client";
+import Image from "next/image";
+import imageUrlBuilder from "@sanity/image-url";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
+import Pagination from "../../components/Pagination";
+import { useAppContext } from "@/context/AppContext";
+import { toast, Toaster } from "react-hot-toast";
+import SocialShare from "../../components/SocialShare";
+
+const builder = imageUrlBuilder(client);
+
+function urlFor(source: any) {
+  return builder.image(source);
+}
+
+const PAGE_SIZE = 5; // Number of products per page
 
 const ProductPage = () => {
-  const { id } = useParams();
-  const router = useRouter(); // For navigation
-  const [showHeader, setShowHeader] = useState(true); // Manage top header visibility
-  const [amount, setAmount] = useState(1); // State for product amount
-  const [successMessage, setSuccessMessage] = useState(''); // State for success message
+  const [products, setProducts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
- 
-  const products = [
-    { id: '1', name: 'The Dandy Chair', price: '£250', description: 'A timeless design, with premium materials...', dimensions: { height: '110cm', width: '75cm', depth: '50cm' }, image: '/Image Left.png' },
-    { id: '2', name: 'Rustic Vase Set', price: '£155.00', description: 'A classic design, perfect for any living room...', dimensions: { height: '90cm', width: '180cm', depth: '80cm' }, image: '/Parent (1).png' },
-    { id: '3', name: 'The Silky Vase', price: '£125.00', description: 'Beautiful ceramic vase...', dimensions: { height: '30cm', width: '20cm', depth: '20cm' }, image: '/Parent (2).png' },
-    { id: '4', name: 'The Lucy Lamp', price: '£399.00', description: 'Stylish lamp...', dimensions: { height: '50cm', width: '30cm', depth: '30cm' }, image: '/Parent (3).png' }
-  ];
+  const { addToCart, addToWishlist } = useAppContext();
 
-  const product = products.find((product) => product.id === id);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const count = await client.fetch(
+          `count(*[_type == "product"])`
+        );
 
-  if (!product) {
-    return <p>Product not found</p>;
-  }
+        const productData = await client.fetch(
+          `*[_type == "product"] | order(_createdAt desc) [$start...$end]{
+            _id,
+            name,
+            price,
+            image,
+            description,
+            stockStatus
+          }`,
+          { start: (currentPage - 1) * PAGE_SIZE, end: currentPage * PAGE_SIZE }
+        );
 
-  // Function to handle adding to cart
-  const handleAddToCart = () => {
-    setSuccessMessage(`${product.name} successfully added to cart!`);
-    setTimeout(() => setSuccessMessage(''), 3000); // Clear message after 3 seconds
+        setProducts(productData);
+        setTotalPages(Math.ceil(count / PAGE_SIZE));
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [currentPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
+  const handleAddToCart = (product: any) => {
+    addToCart(product, 1);
+    toast.success(`${product.name} added to cart!`); // Show success toast
+  };
+
+  const handleAddToWishlist = (product: any) => {
+    addToWishlist(product);
+    toast.success(`${product.name} added to wishlist!`); // Show success toast
+  };
+
+  if (loading) return <div>Loading...</div>;
+
   return (
-    <div className="product-page">
-      {/* Top Header */}
-      {showHeader && (
-        <div className="bg-[#2A254B] text-white flex items-center justify-center px-4 py-2 relative">
-          {/* Content Centered */}
-          <div className="flex items-center gap-2">
-            <img src="/Delivery-icon.png" alt="Delivery Icon" className="w-4 h-4" />
-            <p className="text-sm font-normal">
-              Free delivery on all orders over £50 with code easter checkout
-            </p>
-          </div>
-
-          {/* Cross Button */}
-          <button
-            className="absolute right-4 text-white w-6 h-6 flex items-center justify-center"
-            onClick={() => {
-              setShowHeader(false); // Hide the header
-              router.push('/'); // Redirect to Home Page
-            }}
-          >
-            ✖
-          </button>
-        </div>
-      )}
-
-      {/* Navbar */}
+    <div className="flex flex-col min-h-screen">
       <Navbar />
+      <div className="container mx-auto p-8">
+        <Toaster position="top-center" /> {/* Add Toaster for displaying notifications */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          {products.map((product) => (
+            <div key={product._id} className="border p-4 rounded-lg">
+              <Image
+                src={product.image ? urlFor(product.image).url() : "/placeholder.png"}
+                alt={product.name}
+                width={300}
+                height={300}
+                className="w-full object-cover rounded-lg"
+              />
+              <h2 className="text-xl font-bold">{product.name}</h2>
+              <p className="text-gray-600 my-2">{product.description}</p>
+              <p className="text-gray-900 font-semibold">${product.price}</p>
+              <p
+                className={`text-sm ${
+                  product.stockStatus === "In Stock" ? "text-green-500" : "text-red-500"
+                }`}
+              >
+                {product.stockStatus || "Out of Stock"}
+              </p>
+              <button
+                onClick={() => handleAddToCart(product)}
+                className="w-full py-2 mt-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              >
+                Add to Cart
+              </button>
+              <button
+                onClick={() => handleAddToWishlist(product)}
+                className="w-full py-2 mt-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+              >
+                Add to Wishlist
+              </button>
 
-      {/* Product Details */}
-      <section className="flex flex-col md:flex-row p-8 gap-8">
-        {/* Product Image */}
-        <div className="product-image w-full md:w-1/2 flex-shrink-0">
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-auto object-cover rounded-lg"
-          />
-        </div>
-
-        {/* Product Details */}
-        <div className="product-details w-full md:w-1/2 flex flex-col justify-start space-y-6">
-          <h2 className="text-3xl font-semibold text-[#2A254B]">{product.name}</h2>
-          <p className="text-2xl font-medium text-[#12131A]">{product.price}</p>
-
-          <div className="description">
-            <h3 className="text-lg font-semibold text-[#2A254B]">Description</h3>
-            <p className="text-sm text-[#505977] mt-2">{product.description}</p>
-          </div>
-
-          <ul className="list-disc list-inside space-y-1">
-            <li className="text-sm text-[#505977]">Premium material</li>
-            <li className="text-sm text-[#505977]">Handmade upholstery</li>
-            <li className="text-sm text-[#505977]">Quality timeless classic</li>
-          </ul>
-
-          <div className="dimensions">
-            <h3 className="text-lg font-semibold text-[#2A254B]">Dimensions</h3>
-            <div className="flex flex-wrap gap-8">
-              <div>
-                <p className="text-sm text-[#2A254B]">Height</p>
-                <p className="text-sm text-[#505977]">{product.dimensions.height}</p>
-              </div>
-              <div>
-                <p className="text-sm text-[#2A254B]">Width</p>
-                <p className="text-sm text-[#505977]">{product.dimensions.width}</p>
-              </div>
-              <div>
-                <p className="text-sm text-[#2A254B]">Depth</p>
-                <p className="text-sm text-[#505977]">{product.dimensions.depth}</p>
+              {/* Social Share Component */}
+              <div className="mt-4">
+                <SocialShare productName={product.name} /> {/* Pass product details if required */}
               </div>
             </div>
-          </div>
-
-          <div className="add-to-cart flex items-center space-x-4">
-            <div className="amount-box flex items-center border rounded-md px-4 py-2">
-              <span className="text-sm text-[#505977]">Amount:</span>
-              <button
-                className="text-xl font-semibold mx-2"
-                onClick={() => setAmount(Math.max(amount - 1, 1))} 
-              >
-                -
-              </button>
-              <span className="mx-2">{amount}</span>
-              <button
-                className="text-xl font-semibold mx-2"
-                onClick={() => setAmount(amount + 1)}
-              >
-                +
-              </button>
-            </div>
-            <button
-              className="ml-4 px-6 py-2 bg-[#2A254B] text-white rounded-md"
-              onClick={handleAddToCart}
-            >
-              Add to Cart
-            </button>
-          </div>
-
-          {/* Success Message */}
-          {successMessage && (
-            <p className="text-green-600 font-medium mt-4">{successMessage}</p>
-          )}
+          ))}
         </div>
-      </section>
-
-      {/* New Ceramics Section */}
-      <NewCeramics heading="You Might Also Like" />
-
-      {/* Join the Club */}
-      <JoinTheClub />
-
-      {/* Feature Section */}
-      <FeatureSection />
-
-      {/* Footer */}
-      <FooterProductPage />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
+      <Footer />
     </div>
   );
 };

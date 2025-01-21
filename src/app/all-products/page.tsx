@@ -1,144 +1,235 @@
-import { useState } from "react";
-import Navbar from "./../components/Navbar"; 
-import FooterProductPage from "./../components/FooterProductPage"; 
+"use client";
+
+import { useState, useEffect } from "react";
+import { client } from "../../sanity/lib/client";
+import Navbar from "../components/Navbar";
+import FooterProductPage from "../components/FooterProductPage";
+import Image from "next/image";
+import imageUrlBuilder from "@sanity/image-url";
+import Link from "next/link";
+
+// Create the image URL builder
+const builder = imageUrlBuilder(client);
+
+// Helper function to generate image URLs
+function urlFor(source: any) {
+  return builder.image(source);
+}
+
+// Type for the product and category
+interface Product {
+  _id: string;
+  name: string;
+  price: number;
+  image: any;
+  category: {
+    name: string;
+  };
+  type: string;
+  brand: string;
+  date: string;
+}
+
+interface Category {
+  _id: string;
+  name: string;
+}
+
 const AllProductsPage = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedType, setSelectedType] = useState<string>("");
+  const [selectedBrand, setSelectedBrand] = useState<string>("");
+  const [selectedPriceRange, setSelectedPriceRange] = useState<string>("");
+  const [sortBy, setSortBy] = useState<string>("date");
+
+  // Fetch categories and products
+  useEffect(() => {
+    const fetchCategoriesAndProducts = async () => {
+      // Fetching Categories
+      const categoryData = await client.fetch(`*[_type == "category"]`);
+      setCategories(categoryData);
+
+      // Fetching Products
+      const productData = await client.fetch(
+        `*[_type == "product"]{
+          _id,
+          name,
+          price,
+          image,
+          category->{
+            name
+          },
+          type,
+          brand,
+          date
+        }`
+      );
+      setProducts(productData);
+      setFilteredProducts(productData);
+    };
+
+    fetchCategoriesAndProducts();
+  }, []);
+
+  // Filter Products Based on selected filters
+  useEffect(() => {
+    let filtered = [...products];
+
+    if (selectedCategory) {
+      filtered = filtered.filter(
+        (product) => product.category?.name === selectedCategory
+      );
+    }
+
+    if (selectedType) {
+      filtered = filtered.filter((product) => product.type === selectedType);
+    }
+
+    if (selectedBrand) {
+      filtered = filtered.filter((product) => product.brand === selectedBrand);
+    }
+
+    if (selectedPriceRange) {
+      const [minPrice, maxPrice] = selectedPriceRange
+        .split("-")
+        .map((val) => (val === "+" ? Infinity : Number(val)));
+      filtered = filtered.filter(
+        (product) =>
+          product.price >= minPrice && product.price <= (maxPrice || Infinity)
+      );
+    }
+
+    if (sortBy === "date") {
+      filtered = filtered.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+    } else if (sortBy === "price") {
+      filtered = filtered.sort((a, b) => a.price - b.price);
+    }
+
+    setFilteredProducts(filtered);
+  }, [
+    selectedCategory,
+    selectedType,
+    selectedBrand,
+    selectedPriceRange,
+    sortBy,
+    products,
+  ]);
+
   return (
-    <div className="all-products-page">
-      {/* Navbar */}
+    <div>
       <Navbar />
 
-      {/* Horizontal Image (Below Navbar) */}
-      <section className="relative">
-        <img src="/Frame 143.png" alt="Collection Banner" className="w-full h-auto" />
-      </section>
+      {/* Image Below Navbar */}
+      <div className="relative">
+        <Image
+          src="/Frame 143.png"
+          alt="Banner"
+          width={1920}
+          height={600}
+          className="w-full h-auto object-cover"
+        />
+      </div>
 
-      {/* Filter Bar */}
-      <section className="bg-white py-4 px-8 flex flex-wrap justify-between items-center">
-        {/* Left Side: Categories, Product Type, Price, Brand */}
-        <div className="flex flex-wrap space-x-6 mb-4 lg:mb-0">
-          <div className="flex items-center space-x-2">
-            <span className="text-[#2A254B]">Category</span>
-            <span className="text-[#2A254B]">▼</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <span className="text-[#2A254B]">Product Type</span>
-            <span className="text-[#2A254B]">▼</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <span className="text-[#2A254B]">Price</span>
-            <span className="text-[#2A254B]">▼</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <span className="text-[#2A254B]">Brand</span>
-            <span className="text-[#2A254B]">▼</span>
-          </div>
-        </div>
+      {/* Filter and Sort Section */}
+      <div className="mb-6 p-4 bg-gray-100 flex flex-wrap items-center justify-between space-x-4 space-y-4 sm:space-y-0">
+        {/* Category Filter */}
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="p-2 border border-gray-300 rounded w-full sm:w-auto"
+        >
+          <option value="">All Categories</option>
+          {categories.map((category) => (
+            <option key={category._id} value={category.name}>
+              {category.name}
+            </option>
+          ))}
+        </select>
 
-        {/* Right Side: Sorting by Date */}
-        <div className="flex items-center space-x-4">
-          <span className="text-[#2A254B]">Sorting by:</span>
-          <div className="flex items-center space-x-2">
-            <span className="text-[#2A254B]">Date Added</span>
-            <span className="text-[#2A254B]">▼</span>
-          </div>
-        </div>
-      </section>
+        {/* Type Filter */}
+        <select
+          value={selectedType}
+          onChange={(e) => setSelectedType(e.target.value)}
+          className="p-2 border border-gray-300 rounded w-full sm:w-auto"
+        >
+          <option value="">All Types</option>
+          <option value="Type1">Type1</option>
+          <option value="Type2">Type2</option>
+        </select>
 
-      {/* Products Section */}
-      <section className="px-8 py-10">
-        {/* First Row of Products */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {/* Product 1 */}
-          <div className="flex flex-col items-center">
-            <img src="/HS-Right Image.png" alt="The Dandy chair" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">The Dandy chair</h3>
-            <p className="text-[#505977]">$250.00</p>
-          </div>
-          {/* Product 2 */}
-          <div className="flex flex-col items-center">
-            <img src="/Parent (1).png" alt="Rustic Vase Set" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">Rustic Vase Set</h3>
-            <p className="text-[#505977]">$155.00</p>
-          </div>
-          {/* Product 3 */}
-          <div className="flex flex-col items-center">
-            <img src="/Parent (2).png" alt="The Silky Vase" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">The Silky Vase</h3>
-            <p className="text-[#505977]">$125.00</p>
-          </div>
-          {/* Product 4 */}
-          <div className="flex flex-col items-center">
-            <img src="/Parent (3).png" alt="Product 4" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">The Lucy Lamp</h3>
-            <p className="text-[#505977]">$399.00</p>
-          </div>
-        </div>
+        {/* Brand Filter */}
+        <select
+          value={selectedBrand}
+          onChange={(e) => setSelectedBrand(e.target.value)}
+          className="p-2 border border-gray-300 rounded w-full sm:w-auto"
+        >
+          <option value="">All Brands</option>
+          <option value="Brand1">Brand1</option>
+          <option value="Brand2">Brand2</option>
+        </select>
 
-        {/* Second Row of Products */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10">
-          {/* Product 5 */}
-          <div className="flex flex-col items-center">
-            <img src="/Parent (9).png" alt="Fancy Lamp" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">Golden Lamp</h3>
-            <p className="text-[#505977]">$789.99</p>
-          </div>
-          {/* Product 6 */}
-          <div className="flex flex-col items-center">
-            <img src="/Parent (7).png" alt="Rustic Vase" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">Ceramic Vase</h3>
-            <p className="text-[#505977]">$65.00</p>
-          </div>
-          {/* Product 7 */}
-          <div className="flex flex-col items-center">
-            <img src="/Parent (6).png" alt="Stool" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">Stool</h3>
-            <p className="text-[#505977]">$370.00</p>
-          </div>
-          {/* Product 8 */}
-          <div className="flex flex-col items-center">
-            <img src="/Parent (8).png" alt="Circus Woud" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">Circus Woud</h3>
-            <p className="text-[#505977]">$789.00</p>
-          </div>
-        </div>
+        {/* Price Filter */}
+        <select
+          value={selectedPriceRange}
+          onChange={(e) => setSelectedPriceRange(e.target.value)}
+          className="p-2 border border-gray-300 rounded w-full sm:w-auto"
+        >
+          <option value="">All Prices</option>
+          <option value="0-50">$0 - $50</option>
+          <option value="50-100">$50 - $100</option>
+          <option value="100-500">$100 - $500</option>
+          <option value="500+">$500+</option>
+        </select>
 
-        {/* Third Row of Products */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10">
-          {/* Product 5 */}
-          <div className="flex flex-col items-center">
-            <img src="/HS-Right Image.png" alt="The Dandy chair" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">The Dandy chair</h3>
-            <p className="text-[#505977]">$250.00</p>
-          </div>
-          {/* Product 6 */}
-          <div className="flex flex-col items-center">
-            <img src="/Parent (1).png" alt="Product 6" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">Rustic Vase Set</h3>
-            <p className="text-[#505977]">$155.00</p>
-          </div>
-          {/* Product 7 */}
-          <div className="flex flex-col items-center">
-            <img src="/Parent (2).png" alt="Product 7" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">The Silky Vase</h3>
-            <p className="text-[#505977]">$125.00</p>
-          </div>
-          {/* Product 8 */}
-          <div className="flex flex-col items-center">
-            <img src="/Parent (3).png" alt="Product 8" className="w-full h-auto rounded-lg mb-4" />
-            <h3 className="font-bold text-[#2A254B]">The Lucy Lamp8</h3>
-            <p className="text-[#505977]">$399.00</p>
-          </div>
-        </div>
+        {/* Sort By */}
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+          className="p-2 border border-gray-300 rounded w-full sm:w-auto"
+        >
+          <option value="date">Sort by Date</option>
+          <option value="price">Sort by Price</option>
+        </select>
+      </div>
 
-        {/* Centered 'View Collection' Button */}
-        <div className="flex justify-center mt-10">
-          <button className="bg-[#E0E0E0] text-[#2A254B] px-8 py-3 rounded-lg">
-            View Collection
-          </button>
-        </div>
-      </section>
+      {/* Product Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+        {filteredProducts.map((product) => (
+          <div
+            key={product._id}
+            className="flex flex-col items-center bg-white p-4 rounded-lg shadow-md"
+          >
+            {product.image ? (
+              <Image
+                src={urlFor(product.image).url()}
+                alt={product.name}
+                width={500}
+                height={500}
+                className="rounded-lg mb-4 w-full h-auto"
+              />
+            ) : (
+              <div className="h-48 bg-gray-300 mb-4 w-full"></div>
+            )}
+            <h3 className="font-bold text-[#2A254B]">{product.name}</h3>
+            <p className="text-[#505977]">${product.price}</p>
+            <div className="flex space-x-2 mt-2">
+              <Link
+                href={`/productpage/${product._id}`}
+                className="px-4 py-2 bg-[#2A254B] text-white rounded hover:bg-green-600"
+              >
+                View Details
+              </Link>
+            </div>
+          </div>
+        ))}
+      </div>
 
-      {/* Footer */}
       <FooterProductPage />
     </div>
   );
