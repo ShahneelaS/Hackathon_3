@@ -1,7 +1,7 @@
 import { client, urlFor } from '../../sanity/lib/client';
 import Navbar from './../components/Navbar';
 import Footer from './../components/Footer';
-import Image from 'next/image'; 
+import Image from 'next/image';
 
 interface Product {
   _id: string;
@@ -18,15 +18,21 @@ interface Product {
 }
 
 export default async function Ceramics() {
-  const products: Product[] = await client.fetch(
-    `*[_type == "product" && category->name == "Ceramics"]{
-      _id,
-      name,
-      description,
-      price,
-      image
-    }`
-  );
+  let products: Product[] = [];
+  try {
+    products = await client.fetch(
+      `*[_type == "product" && category->name == "Ceramics"]{
+        _id,
+        name,
+        description,
+        price,
+        image
+      }`
+    );
+  } catch (error) {
+    console.error('Failed to fetch products:', error);
+    products = [];
+  }
 
   if (!products || products.length === 0) {
     return (
@@ -53,7 +59,7 @@ export default async function Ceramics() {
                 <Image
                   src={urlFor(product.image).width(300).height(200).url()}
                   alt={product.name}
-                  width={300} 
+                  width={300}
                   height={200}
                   className="w-full h-48 object-cover rounded mb-4"
                 />
