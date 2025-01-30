@@ -1,39 +1,32 @@
+import React from 'react';
 
-import React, { useState } from 'react';
+interface Order {
+  id: number;
+  date: string;
+  status: string;
+}
 
-const OrderTracking = () => {
-  const [orderId, setOrderId] = useState('');
+interface OrderTrackingProps {
+  orderHistory: Order[];
+}
 
-  const handleOrderIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setOrderId(event.target.value);
-  };
-
-  const handleTrackOrder = () => {
-    if (orderId.trim()) {
-      // Simulate tracking the order (e.g., fetch order details from API)
-      console.log('Tracking order ID:', orderId);
-      // We can add logic here to fetch order details from the backend or API
-    } else {
-      alert('Please enter an order ID');
-    }
-  };
-
+const OrderTracking: React.FC<OrderTrackingProps> = ({ orderHistory }) => {
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
-      <h3 className="text-xl font-semibold text-gray-800 mb-4">Track Your Order</h3>
-      <input
-        type="text"
-        placeholder="Enter Order ID"
-        value={orderId}
-        onChange={handleOrderIdChange}
-        className="w-full p-2 border border-gray-300 rounded-lg mb-4"
-      />
-      <button
-        onClick={handleTrackOrder}
-        className="bg-[#2A254B] text-white px-4 py-2 rounded-lg"
-      >
-        Track Order
-      </button>
+      <h3 className="text-xl font-semibold text-gray-800 mb-4">Order Tracking</h3>
+      <ul className="list-disc pl-5">
+        {orderHistory.length === 0 ? (
+          <li className="text-gray-600">No orders found</li>
+        ) : (
+          orderHistory.map((order) => (
+            <li key={order.id} className="text-blue-600">
+              <a href={`/orders/${order.id}`} className="underline">
+                Order {order.id} - {order.status} ({order.date})
+              </a>
+            </li>
+          ))
+        )}
+      </ul>
     </div>
   );
 };

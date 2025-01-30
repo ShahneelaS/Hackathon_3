@@ -1,60 +1,80 @@
 "use client";
 
-import React from 'react';
-import UserProfile from '../components/UserProfile';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import FeedbackForm from '../components/FeedbackForm';
-import ReviewsRating from '../components/ReviewsRatings';
-import OrderTracking from '../components/OrderTracking';
-import GiftCard from '../components/GiftCard'; 
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import UserProfile from "../components/UserProfile";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import FeedbackForm from "../components/FeedbackForm";
+import ReviewsRating from "../components/ReviewsRatings";
+import OrderTracking from "../components/OrderTracking";
+import GiftCard from "../components/GiftCard";
 
 const ProfilePage = () => {
-  const userData = {
-    name: 'John Doe',
-    email: 'johndoe@example.com',
-    addresses: ['123 Main St, City, Country', '456 Elm St, City, Country'],
-    orderHistory: [
-      { id: 1, date: '2025-01-01', status: 'Shipped' },
-      { id: 2, date: '2025-01-10', status: 'Delivered' }
-    ]
+  const router = useRouter();
+  const [userData, setUserData] = useState<any>(null);
+
+  useEffect(() => {
+    const storedUserData = localStorage.getItem("user");
+
+    if (!storedUserData) {
+      router.push("/signin"); // Redirect to Signin if not logged in
+    } else {
+      setUserData(JSON.parse(storedUserData));
+    }
+  }, [router]);
+
+  // Function to handle logout
+  const handleLogout = () => {
+    localStorage.removeItem("user"); // Remove user data from localStorage
+    router.push("/signin"); // Redirect to Signin page
   };
+
+  if (!userData) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-50 min-h-screen">
       <Navbar />
       <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-semibold text-gray-900 mb-8">My Profile</h1>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-semibold text-gray-900">My Profile</h1>
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
+          >
+            Logout
+          </button>
+        </div>
 
-        {/* User Profile */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-6">
           <UserProfile
             name={userData.name}
             email={userData.email}
-            addresses={userData.addresses}
-            orderHistory={userData.orderHistory}
+            addresses={userData.addresses || []}
+            orderHistory={userData.orderHistory || []}
           />
         </div>
 
-        {/* Dashboard Sections */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
-          {/* Order Tracking */}
           <div className="bg-white p-6 rounded-lg shadow-md">
-            <OrderTracking />
+            <OrderTracking orderHistory={userData.orderHistory || []} />
           </div>
 
-          {/* Gift Card */}
           <div className="bg-white p-6 rounded-lg shadow-md">
             <GiftCard />
           </div>
         </div>
 
-        {/* Feedback Form */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-6 mt-8">
           <FeedbackForm />
         </div>
 
-        {/* Reviews & Ratings */}
         <div className="bg-white p-6 rounded-lg shadow-md">
           <ReviewsRating />
         </div>

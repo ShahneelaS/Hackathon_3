@@ -1,36 +1,34 @@
-"use client";
+import React, { useState } from 'react';
 
-import { useState } from "react";
-
-const GiftCard = () => {
-  const [code, setCode] = useState("");
-  const [balance, setBalance] = useState<number | null>(null);
+const GiftCard: React.FC = () => {
+  const [giftCardCode, setGiftCardCode] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleRedeem = () => {
-    // Logic for redeeming gift card
-    setBalance(100); // Placeholder balance
-    alert("Gift Card Redeemed!");
+    if (giftCardCode === "GIFT100") {
+      setMessage("Gift card successfully redeemed!");
+    } else {
+      setMessage("Invalid gift card code.");
+    }
   };
 
   return (
-    <div className="p-6 border rounded-lg">
-      <h2 className="text-xl font-bold mb-4">Gift Cards & Vouchers</h2>
+    <div className="bg-white p-6 rounded-lg shadow-md">
+      <h3 className="text-xl font-semibold text-gray-800 mb-4">Gift Card</h3>
       <input
         type="text"
-        placeholder="Enter Gift Card Code"
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
-        className="border p-2 w-full mb-4"
+        placeholder="Enter gift card code"
+        value={giftCardCode}
+        onChange={(e) => setGiftCardCode(e.target.value)}
+        className="p-2 border border-gray-300 rounded-md mb-4 w-full"
       />
       <button
         onClick={handleRedeem}
-        className="w-full py-2 bg-[#2A254B] text-white rounded-lg"
+        className="bg-[#2A254B] text-white px-4 py-2 rounded-md"
       >
         Redeem
       </button>
-      {balance !== null && (
-        <p className="mt-4 text-green-500">Balance: ${balance}</p>
-      )}
+      {message && <p className="mt-4 text-gray-600">{message}</p>}
     </div>
   );
 };
