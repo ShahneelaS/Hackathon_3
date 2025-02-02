@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 const PopularProducts = () => {
   return (
@@ -51,11 +52,13 @@ const PopularProducts = () => {
       </div>
 
       {/* Button */}
-      <div className="text-center mt-12">
-        <button className="bg-[#E0E0E0] text-[#2A254B] px-8 py-3 font-ClashDisplay rounded-lg hover:bg-[#D1D1D1]">
-          View Collection
-        </button>
-      </div>
+<div className="text-center mt-12">
+  <Link href="/all-products">
+    <button className="bg-[#E0E0E0] text-[#2A254B] px-8 py-3 font-ClashDisplay rounded-lg hover:bg-[#D1D1D1]">
+      View Collection
+    </button>
+  </Link>
+</div>
     </section>
   );
 };

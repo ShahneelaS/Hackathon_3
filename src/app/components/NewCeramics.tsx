@@ -2,12 +2,19 @@
 
 import Link from 'next/link';
 import Image from 'next/image'; 
+import { useRouter } from 'next/navigation'; 
 
 interface NewCeramicsProps {
   heading?: string; 
 }
 
 const NewCeramics = ({ heading = "New Ceramics" }: NewCeramicsProps) => {
+  const router = useRouter(); 
+
+  const handleViewCollection = () => {
+    router.push('/all-products'); 
+  };
+
   return (
     <section className="bg-white py-20 px-6 lg:px-20">
       <h2 className="text-[#2A254B] text-2xl font-ClashDisplay mb-12 text-center">{heading}</h2>
@@ -82,12 +89,13 @@ const NewCeramics = ({ heading = "New Ceramics" }: NewCeramicsProps) => {
       </div>
 
       {/* Button to view the full collection */}
-      <div className="flex justify-center mt-8"> {/* Increased margin-top */}
-        <Link href="/all-products">
-          <button className="bg-[#E0E0E0] text-[#2A254B] px-8 py-3 font-ClashDisplay rounded-lg hover:bg-[#D1D1D1]">
-            View Collection
-          </button>
-        </Link>
+      <div className="flex justify-center mt-8"> 
+        <button 
+          onClick={handleViewCollection} 
+          className="bg-[#E0E0E0] text-[#2A254B] px-8 py-3 font-ClashDisplay rounded-lg hover:bg-[#D1D1D1]"
+        >
+          View Collection
+        </button>
       </div>
     </section>
   );

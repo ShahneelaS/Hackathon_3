@@ -95,11 +95,17 @@ const ProductPage = () => {
               <p className="text-gray-900 font-semibold">${product.price}</p>
               <p
                 className={`text-sm ${
-                  product.stockStatus === "In Stock" ? "text-green-500" : "text-red-500"
+                product.stockStatus
+                ? product.stockStatus.toLowerCase() === "in stock"
+                ? "text-green-500"
+                : "text-red-500"
+                : product.price > 0 // If price > 0, show "In Stock", otherwise "Out of Stock"
+                ? "text-green-500"
+                : "text-red-500"
                 }`}
-              >
-                {product.stockStatus || "Out of Stock"}
-              </p>
+                >
+           {product.stockStatus || (product.price > 0 ? "In Stock" : "Out of Stock")}
+          </p>
               <button
                 onClick={() => handleAddToCart(product)}
                 className="w-full py-2 mt-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700"

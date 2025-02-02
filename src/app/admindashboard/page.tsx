@@ -55,7 +55,7 @@ export default function AdminDashboard() {
           <h2 className="text-xl font-semibold mb-2">Orders</h2>
           <p>Track and manage customer orders.</p>
           <button
-            onClick={() => alert("Redirect to Orders Management")}
+            onClick={() => router.push("/orders")} // Redirect to Orders Page
             className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           >
             Manage Orders

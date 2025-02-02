@@ -1,7 +1,14 @@
 import React from "react";
 import Image from 'next/image'; 
+import { useRouter } from 'next/navigation'; 
 
 const HeroSection = () => {
+  const router = useRouter(); 
+
+  const handleViewCollection = () => {
+    router.push('/all-products'); 
+  };
+
   return (
     <section className="bg-[#2A254B] text-white py-16 px-6 lg:px-20 flex flex-col lg:flex-row justify-between items-center relative overflow-hidden">
       {/* Left Side */}
@@ -11,12 +18,15 @@ const HeroSection = () => {
           The furniture brand for the future, <br /> with timeless designs
         </h2>
 
-        {/* View Collection Button (Placed before paragraph) */}
-        <button className="bg-[#F9F9F926] text-white font-satoshi py-4 px-8 rounded-lg mb-12">
+        {/* View Collection Button */}
+        <button 
+          onClick={handleViewCollection} 
+          className="bg-[#F9F9F926] text-white font-satoshi py-4 px-8 rounded-lg mb-12"
+        >
           View Collection
         </button>
 
-        {/* Description Paragraph (Placed after button) */}
+        {/* Description Paragraph */}
         <p className="font-satoshi text-lg sm:text-xl lg:text-[18px] leading-[27px] mb-0 text-justify sm:pr-10 lg:pr-20">
           <span className="block">
             A new era in eco-friendly furniture with Avelon, the French luxury

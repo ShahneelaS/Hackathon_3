@@ -36,13 +36,25 @@ const FooterProductPage = () => {
         {/* Second Section: Social Links */}
         <div>
           <h3 className="font-clash text-lg sm:text-xl mb-4">Social Links</h3>
-          <div className="flex space-x-6">
-            <FaLinkedin className="w-6 h-6" />
-            <FaFacebook className="w-6 h-6" />
-            <FaInstagram className="w-6 h-6" />
-            <FaSkype className="w-6 h-6" />
-            <FaTwitter className="w-6 h-6" />
-            <FaPinterest className="w-6 h-6" />
+          <div className="flex space-x-4">
+            <Link href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+              <FaLinkedin className="w-6 h-6" />
+            </Link>
+            <Link href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+              <FaFacebook className="w-6 h-6" />
+            </Link>
+            <Link href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+              <FaInstagram className="w-6 h-6" />
+            </Link>
+            <Link href="https://www.skype.com" target="_blank" rel="noopener noreferrer">
+              <FaSkype className="w-6 h-6" />
+            </Link>
+            <Link href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
+              <FaTwitter className="w-6 h-6" />
+            </Link>
+            <Link href="https://www.pinterest.com" target="_blank" rel="noopener noreferrer">
+              <FaPinterest className="w-6 h-6" />
+            </Link>
           </div>
         </div>
 
@@ -55,7 +67,7 @@ const FooterProductPage = () => {
             <li className="font-satoshi text-sm sm:text-base">Recently viewed</li>
             <li className="font-satoshi text-sm sm:text-base">Popular this week</li>
             <li className="font-satoshi text-sm sm:text-base">
-              <Link href="/all-products">All products</Link> {/* Add Link */}
+              <Link href="/all-products">All products</Link>
             </li>
           </ul>
         </div>
@@ -64,11 +76,21 @@ const FooterProductPage = () => {
         <div>
           <h3 className="font-clash text-lg sm:text-xl mb-4">Categories</h3>
           <ul className="space-y-2">
-            <li className="font-satoshi text-sm sm:text-base">Crockery</li>
-            <li className="font-satoshi text-sm sm:text-base">Furniture</li>
-            <li className="font-satoshi text-sm sm:text-base">Homeware</li>
-            <li className="font-satoshi text-sm sm:text-base">Plant pots</li>
-            <li className="font-satoshi text-sm sm:text-base">Chairs</li>
+            <li className="font-satoshi text-sm sm:text-base">
+              <Link href="/crockery">Crockery</Link>
+            </li>
+            <li className="font-satoshi text-sm sm:text-base">
+              <Link href="/tables">Furniture</Link>
+            </li>
+            <li className="font-satoshi text-sm sm:text-base">
+              <Link href="/ceramics">Homeware</Link>
+            </li>
+            <li className="font-satoshi text-sm sm:text-base">
+              <Link href="/plant-pots">Plant pots</Link>
+            </li>
+            <li className="font-satoshi text-sm sm:text-base">
+              <Link href="/chairs">Chairs</Link>
+            </li>
           </ul>
         </div>
 
@@ -76,11 +98,13 @@ const FooterProductPage = () => {
         <div>
           <h3 className="font-clash text-lg sm:text-xl mb-4">Our company</h3>
           <ul className="space-y-2">
-          <li className="font-satoshi text-sm sm:text-base">
-              <Link href="/about">About us</Link> {/* Add Link */}
+            <li className="font-satoshi text-sm sm:text-base">
+              <Link href="/about">About us</Link>
+            </li>
+            <li className="font-satoshi text-sm sm:text-base">
+              <Link href="/contact-us">Contact us</Link>
             </li>
             <li className="font-satoshi text-sm sm:text-base">Vacancies</li>
-            <li className="font-satoshi text-sm sm:text-base">Contact us</li>
             <li className="font-satoshi text-sm sm:text-base">Privacy</li>
             <li className="font-satoshi text-sm sm:text-base">Returns policy</li>
           </ul>
@@ -90,7 +114,7 @@ const FooterProductPage = () => {
       {/* Bottom Line */}
       <div className="border-t border-gray-500 mt-10 pt-6 flex justify-between items-center flex-col sm:flex-row">
         <p className="text-sm font-satoshi text-center sm:text-left">
-          Copyright 2022 Avion LTD
+          Copyright 2025 Avion LTD
         </p>
       </div>
     </footer>

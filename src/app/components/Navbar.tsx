@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { FiHome } from "react-icons/fi";
 import SearchComponent from "./SearchComponent";
 import AdvancedSearchComponent from "./AdvancedSearchComponent";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -22,6 +23,7 @@ const Navbar = () => {
   const [isAdvancedSearchOpen, setIsAdvancedSearchOpen] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); 
   const router = useRouter();
 
   const products: Product[] = [
@@ -55,6 +57,11 @@ const Navbar = () => {
     <nav className="sticky top-0 bg-white shadow-md z-50">
       {/* Top Navbar */}
       <div className="flex flex-wrap items-center justify-between px-4 py-3 border-b border-gray-200 md:px-6 md:py-4">
+        {/* Home Button */}
+        <Link href="/" className="text-gray-800 text-2xl">
+          <FiHome />
+        </Link>
+        
         {/* Search Bar */}
         <div className="relative flex items-center w-1/3">
           <SearchComponent onSearch={(query) => handleAdvancedSearch(query)} />
@@ -67,11 +74,15 @@ const Navbar = () => {
         </div>
 
         {/* Brand Logo */}
-        <Link href="/" className="mx-auto">
-          <h1 className="text-lg font-bold font-clash text-gray-800 md:text-xl">
-            Avion
-          </h1>
-        </Link>
+        <h1 className="text-lg font-bold font-clash text-gray-800 md:text-xl">Avion</h1>
+
+        {/* Mobile Menu Toggle Button */}
+        <button
+          className="block md:hidden text-gray-800"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          <span className="text-2xl">&#9776;</span> {/* Hamburger icon */}
+        </button>
 
         {/* Icons */}
         <div className="flex items-center space-x-4">
@@ -115,8 +126,8 @@ const Navbar = () => {
                 >
                   Profile
                 </button>
-                <Link href="/orders" className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
-                  Orders
+                <Link href="/track-shipment" className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
+                  Track Shipment
                 </Link>
                 <Link href="/admindashboard" className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
                   Admin Dashboard
@@ -136,8 +147,31 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Bottom Navigation */}
-      <div className="flex flex-wrap items-center justify-center gap-4 px-4 py-3 overflow-x-auto md:px-6 md:py-4">
+      {/* Mobile Menu Links (Show only if isMenuOpen is true) */}
+      {isMenuOpen && (
+        <div className="flex flex-col items-center justify-center gap-4 px-4 py-3 overflow-x-auto md:hidden">
+          {["Plant Pots", "Ceramics", "Tables", "Chairs", "Crockery", "Tableware", "Cutlery"].map((item) => (
+            <Link key={item} href={`/${item.toLowerCase().replace(" ", "-")}`} className="no-underline">
+              <div className="text-sm font-medium text-gray-600 hover:text-gray-800 whitespace-nowrap">
+                {item}
+              </div>
+            </Link>
+          ))}
+          <Link href="/about" className="no-underline">
+            <div className="text-sm font-medium text-gray-600 hover:text-gray-800 whitespace-nowrap">
+            About us
+            </div>
+          </Link>
+          <Link href="/contact-us" className="no-underline">
+            <div className="text-sm font-medium text-gray-600 hover:text-gray-800 whitespace-nowrap">
+              Contact Us
+            </div>
+          </Link>
+        </div>
+      )}
+
+      {/* Bottom Navigation (Visible on medium screens and up) */}
+      <div className="hidden md:flex flex-wrap items-center justify-center gap-4 px-4 py-3 overflow-x-auto md:px-6 md:py-4">
         {["Plant Pots", "Ceramics", "Tables", "Chairs", "Crockery", "Tableware", "Cutlery"].map((item) => (
           <Link key={item} href={`/${item.toLowerCase().replace(" ", "-")}`} className="no-underline">
             <div className="text-sm font-medium text-gray-600 hover:text-gray-800 whitespace-nowrap">
@@ -145,9 +179,9 @@ const Navbar = () => {
             </div>
           </Link>
         ))}
-        <Link href="/track-shipment" className="no-underline">
+        <Link href="/about" className="no-underline">
           <div className="text-sm font-medium text-gray-600 hover:text-gray-800 whitespace-nowrap">
-            Track Shipment
+          About us
           </div>
         </Link>
         <Link href="/contact-us" className="no-underline">

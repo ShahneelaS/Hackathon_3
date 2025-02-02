@@ -20,16 +20,17 @@ const TrackingForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     try {
-      const response = await fetch('/api/track-shipment', {
+      const response = await fetch('/api/shipment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ trackingNumber }),
       });
-
+  
       const data = await response.json();
-
+      console.log('API Response:', data);  
+  
       if (response.ok) {
         setShipmentStatus(data);
       } else {
@@ -37,8 +38,10 @@ const TrackingForm = () => {
       }
     } catch (error) {
       setError('Error fetching shipment details');
+      console.error('Error:', error);  
     }
   };
+  
 
   return (
     <>

@@ -54,12 +54,12 @@ const AboutPage = () => {
           outstanding customer service
         </h2>
         <div className="w-full flex justify-center mt-8">
-          <button
-            className="bg-[#E0E0E0] text-[#2A254B] px-8 py-4 rounded-full text-base font-medium"
-            onClick={() => router.push("/products")} 
-          >
-            View All Products
-          </button>
+        <button
+          className="bg-[#E0E0E0] text-[#2A254B] px-8 py-4 rounded-full text-base font-medium"
+         onClick={() => router.push("/all-products")} 
+           >
+          View All Products
+         </button>
         </div>
       </section>
 
@@ -75,10 +75,10 @@ const AboutPage = () => {
           </p>
           <button
             className="bg-[#726E8D] text-white px-4 py-3 rounded-lg text-base font-medium mt-auto w-auto max-w-[200px]"
-            onClick={() => router.push("/collection")}
-          >
+             onClick={() => router.push("/all-products")}
+             >
             View Collection
-          </button>
+           </button>
         </div>
 
         {/* Image (Right side) */}
@@ -86,8 +86,8 @@ const AboutPage = () => {
           <Image
             src="/Image Block.png" 
             alt="About Us Image"
-            width={800} // Set the width
-            height={600} // Set the height
+            width={800} 
+            height={600} 
             className="w-full h-full object-cover rounded-lg"
           />
         </div>
@@ -100,8 +100,8 @@ const AboutPage = () => {
           <Image
             src="/left-image.png" 
             alt="Service Image"
-            width={800} // Set the width
-            height={600} // Set the height
+            width={800} 
+            height={600} 
             className="w-full h-full object-cover rounded-lg"
           />
         </div>
@@ -120,12 +120,12 @@ const AboutPage = () => {
             so our Chelsea boutique became the hotbed for the London interior design community.
           </p>
           <div className="mt-auto">
-            <button
-              className="bg-[#726E8D] text-white px-8 py-4 rounded-full text-base font-medium"
-              onClick={() => window.location.href = "/contact"} 
-            >
-              Get in Touch
-            </button>
+          <button
+          className="bg-[#726E8D] text-white px-8 py-4 rounded-full text-base font-medium"
+          onClick={() => router.push("/contact-us")}
+           >
+         Get in Touch
+        </button>
           </div>
         </div>
       </section>
